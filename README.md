@@ -28,10 +28,13 @@ $ docker build -t mi-app-v1 .
 
 > Nota: Antes de construir la imagen posicionarse en la rama correspondiente (main, develop, testing).
 
-#### Despliegue del contenedor
+Una vez terminado comprobamos si la imagen se ha creado.
 
-Mediante comandos Docker.
+# docker images
+---
 
-```
-$ docker run -d -e NAME="Mi App" -p 8000:80 --name mi-app mi-app-img
-```
+Ahora procedemos a crear el contenedor.
+Vamos a utilizar el comando
+
+# docker run -d -p 80:80 mi-app
+

@@ -11,7 +11,7 @@ Dockerfile para la creacion y despliegue de la aplicacion **Mi App**.
 #### Clonar repositorio
 
 ```
-$ git clone https://gitlab.com/infra-miercoles-1er-2024/mi-app.git
+$ git clone https://github.com/pexcadito/tpfinal
 ```
 
  Una vez clonado el repo acceder al directorio.

@@ -1,28 +1,41 @@
 TP Final - Mi App
+
 Creación de la Imagen Docker
 Clonar Repositorio
+
 $ git clone https://github.com/pexcadito/tpfinal
 $ cd tpfinal
+
 Construcción de la Imagen
+
 Asegúrate de estar en la rama correcta (main, develop, testing) antes de construir la imagen.
 $ docker build -t tpfinal .
+
 Verifica que la imagen se haya creado correctamente.
 $ docker images
+
 Creación y Montaje de un Volumen
+
 Verifica las unidades disponibles en el disco.
+
 $ lsblk
+
 Si no tienes un dispositivo /dev disponible, puedes crear uno virtualmente:
 $ dd if=/dev/zero of=tpfinal.img bs=1M count=1024
 $ mkfs.ext4 tpfinal.img
 $ mkdir /mnt/tpfinal
 $ mount tpfinal.img /mnt/tpfinal
 $ lsblk
+
 Creación del Contenedor Docker con Volumen Montado
 $ docker run -d -p 80:80 --name miapache -v /mnt/tpfinal:/var/www/html/ httpd
+
 Verifica la IP del contenedor para acceder a la URL.
 
 Modificación y Copia de Archivos
+
 Modifica el archivo index.html en el directorio montado (/mnt/tpfinal) y cópialo al contenedor.
+
 $ docker cp /mnt/tpfinal/index.html miapache:/var/www/html/index.html
 Accede al contenedor para modificar el archivo de configuración si es necesario.
 

@@ -80,3 +80,4 @@ server {
     }
 }
 
+(Reemplaza ip_docker_server con la IP del servidor Docker donde se ejecuta la aplicación Mi App).

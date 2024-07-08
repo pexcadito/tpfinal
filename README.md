@@ -1,92 +1,40 @@
-# TP Dockerfile
-
-## Mi App
-
-Dockerfile para la creacion y despliegue de la aplicacion **Mi App**.
-
-
-
-### Creación de la imagen
-
-#### Clonar repositorio
-
-```
+TP Final - Mi App
+Creación de la Imagen Docker
+Clonar Repositorio
 $ git clone https://github.com/pexcadito/tpfinal
-```
-
- Una vez clonado el repo acceder al directorio.
-
-```
 $ cd tpfinal
-```
-
-#### Creación de imagen
-
-```
+Construcción de la Imagen
+Asegúrate de estar en la rama correcta (main, develop, testing) antes de construir la imagen.
 $ docker build -t tpfinal .
-```
+Verifica que la imagen se haya creado correctamente.
+$ docker images
+Creación y Montaje de un Volumen
+Verifica las unidades disponibles en el disco.
+$ lsblk
+Si no tienes un dispositivo /dev disponible, puedes crear uno virtualmente:
+$ dd if=/dev/zero of=tpfinal.img bs=1M count=1024
+$ mkfs.ext4 tpfinal.img
+$ mkdir /mnt/tpfinal
+$ mount tpfinal.img /mnt/tpfinal
+$ lsblk
+Creación del Contenedor Docker con Volumen Montado
+$ docker run -d -p 80:80 --name miapache -v /mnt/tpfinal:/var/www/html/ httpd
+Verifica la IP del contenedor para acceder a la URL.
 
-> Nota: Antes de construir la imagen posicionarse en la rama correspondiente (main, develop, testing).
+Modificación y Copia de Archivos
+Modifica el archivo index.html en el directorio montado (/mnt/tpfinal) y cópialo al contenedor.
+$ docker cp /mnt/tpfinal/index.html miapache:/var/www/html/index.html
+Accede al contenedor para modificar el archivo de configuración si es necesario.
 
-Una vez terminado comprobamos si la imagen se ha creado.
+$ docker exec -it miapache bash
+$ nano /usr/local/apache2/conf/httpd.conf
 
-# docker images
----
+Una vez modificado, copia nuevamente el index.html al directorio correcto.
 
-Ahora procedemos a crear el contenedor.
-Vamos a utilizar el comando
+$ docker cp /mnt/tpfinal/index.html miapache:/var/www/html/index.html
 
-# docker run -d -p 80:80 tpfinal
----
-Lo que haremos ahora es dar formato y montar en un volumen “x”
-Verificamos el disco las unidades:
-# lsblk
----
-En caso de no tener un dispositivo DEV para el montaje, podemos utilizar uno virtual, haciendo lo siguiente:
-
-# dd if=/dev/zero of=tpfinal.img bs=1M count=1024
-(tpfinal.img, es el que utilizamos nosotros)
---	
-Ahora le damos formato al mismo.
-
-# mkfs.ext4 tpfinal.img
---
-Ahora vamos a crear un punto de directorio para el montaje del mismo.
-# mkdir /mnt/tpfinal
-
-Y ahora montamos el archivo IMG con en la carpeta especificada.
-
-# mount tpfinal.img /mnt/tpfinal
-
-Y con el comando siguiente vemos la unidad, vemos la unidad.
-
-# lsblk
---
-Ahora vamos crear el contenedor Docker con el volumen montado
-
-# docker run -d -p 80:80 --name miapache -v /mnt/tpfinal:/var/www/html/ httpd
-Y comprobamos con la ip del nuestro contenedor acceder a la URL
----
-Ahora vamos a crear el archivo CSS muy muy básico para el index.html y asi modificar y agregarlo al contenedor.
-
-# docker cp /mnt/tpfinal/index.html miapache2:/usr/local/apache2/htdocs/index.html
-
-Vemos aquí, que el directorio es otro, pero vamos a modificar el archivo de configuración para que nos tome la que nos indicaron: /var/www/html
-
-Accedemos al docker
-
-# docker exec -it miapache2 bash
-Despues accedemos al archivo de configuración y modificamos el directorio del mismo.
-
-# nano /usr/local/apache2/conf/httpd.conf
----
-Una vez modificado, modificamos el index.html, en el directorio de mount que hemos creado, como lo tenemos ya modificado, lo copiamos utilizando lo siguiente:
-
-# docker cp /mnt/tpfinal/index.html miapache2:/var/www/html/index.html
-
-Por ultimo creamos el archivo con la configuración del proxy y asi agregarlo con su instalador.
-
-En este caso creamos mi-app.conf
+Configuración del Proxy
+Crea un archivo de configuración para el proxy, por ejemplo, mi-app.conf.
 
 server {
     listen 80;

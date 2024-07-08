@@ -42,9 +42,11 @@ Creación del Contenedor Docker con Volumen Montado
 
 $ docker run -d -p 80:80 --name miapache -v /mnt/tpfinal:/var/www/html/ httpd
 
-Verifica la IP del contenedor para acceder a la URL.
+Verifica la IP del contenedor para acceder a la URL, cual han colocado.
 
 Modificación y Copia de Archivos
+
+Crer un archivo index.html en el directorio a montar.
 
 Modifica el archivo index.html en el directorio montado (/mnt/tpfinal) y cópialo al contenedor.
 

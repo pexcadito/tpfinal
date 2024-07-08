@@ -1,17 +1,23 @@
 TP Final - Mi App
 
-Creación de la Imagen Docker
-Clonar Repositorio
+Este repositorio contiene los pasos y configuraciones necesarios para la creación y despliegue de la aplicación **Mi App** utilizando Docker.
+
+## Creación de la Imagen Docker
+
+### Clonar Repositorio
 
 $ git clone https://github.com/pexcadito/tpfinal
+
 $ cd tpfinal
 
 Construcción de la Imagen
 
 Asegúrate de estar en la rama correcta (main, develop, testing) antes de construir la imagen.
+
 $ docker build -t tpfinal .
 
 Verifica que la imagen se haya creado correctamente.
+
 $ docker images
 
 Creación y Montaje de un Volumen
@@ -22,9 +28,13 @@ $ lsblk
 
 Si no tienes un dispositivo /dev disponible, puedes crear uno virtualmente:
 $ dd if=/dev/zero of=tpfinal.img bs=1M count=1024
+
 $ mkfs.ext4 tpfinal.img
+
 $ mkdir /mnt/tpfinal
+
 $ mount tpfinal.img /mnt/tpfinal
+
 $ lsblk
 
 Creación del Contenedor Docker con Volumen Montado

@@ -27,6 +27,7 @@ Verifica las unidades disponibles en el disco.
 $ lsblk
 
 Si no tienes un dispositivo /dev disponible, puedes crear uno virtualmente:
+
 $ dd if=/dev/zero of=tpfinal.img bs=1M count=1024
 
 $ mkfs.ext4 tpfinal.img
@@ -38,6 +39,7 @@ $ mount tpfinal.img /mnt/tpfinal
 $ lsblk
 
 Creación del Contenedor Docker con Volumen Montado
+
 $ docker run -d -p 80:80 --name miapache -v /mnt/tpfinal:/var/www/html/ httpd
 
 Verifica la IP del contenedor para acceder a la URL.
@@ -47,9 +49,11 @@ Modificación y Copia de Archivos
 Modifica el archivo index.html en el directorio montado (/mnt/tpfinal) y cópialo al contenedor.
 
 $ docker cp /mnt/tpfinal/index.html miapache:/var/www/html/index.html
+
 Accede al contenedor para modificar el archivo de configuración si es necesario.
 
 $ docker exec -it miapache bash
+
 $ nano /usr/local/apache2/conf/httpd.conf
 
 Una vez modificado, copia nuevamente el index.html al directorio correcto.

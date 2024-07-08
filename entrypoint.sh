@@ -6,24 +6,24 @@
 apt update && apt install apache2 git -y
 
 
-if test -d /app;then
+if test -d /tpfinal;then
 	
 	# esto se ejecuta siempre que la condicion devuelva true.
-	cd /app && git pull
+	cd /tpfinal && git pull
 else
 	# esto se ejecuta siempre que la condicion devuelva false.
-	git clone https://gitlab.com/infra-miercoles-1er-2024/mi-app.git /app 
+	git clone https://github.com/pexcadito/tpfinal /tpfinal 
 fi
 
 
 
-cd /app && git checkout v2.0
+cd /tpfinal && git checkout v2.0
 
-cp /app/apache2.conf /etc/apache2/
+cp /tpfinal/apache2.conf /etc/apache2/
 
-cp /app/000-default.conf /etc/apache2/sites-available/
+cp /tpfinal/000-default.conf /etc/apache2/sites-available/
 
-sed -i 's/titulo/'"$NAME"'/' /app/html/index.html
+sed -i 's/titulo/'"$NAME"'/' /tpfinal/html/index.html
 
 
 exec "$@" 

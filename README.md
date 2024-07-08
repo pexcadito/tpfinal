@@ -63,6 +63,8 @@ $ docker cp /mnt/tpfinal/index.html miapache:/var/www/html/index.html
 Configuración del Proxy
 Crea un archivo de configuración para el proxy, por ejemplo, mi-app.conf.
 
+
+
 server {
     listen 80;
     server_name tpfinal.com;
